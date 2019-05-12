@@ -3,7 +3,7 @@
 
 namespace itertools
 {
-  template<template T1, template T2>
+  template<typename T1, typename T2>
 
   class chain
   {
@@ -42,12 +42,12 @@ namespace itertools
 
       bool operator==(iterator it) const
       {
-        return *iter == *iter.it;
+        return *iter == *it.iter;
       }
 
       bool operator!=(iterator it) const
       {
-        return *iter != *iter.it;
+        return *iter != *it.iter;
       }
 
 

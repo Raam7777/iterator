@@ -40,12 +40,12 @@ public:
 
     bool operator==(iterator it) const
     {
-      return *iter == *iter.it;
+      return *iter == *it.iter;
     }
 
     bool operator!=(iterator it) const
     {
-      return *iter != *iter.it;
+      return *iter != *it.iter;
     }
 
 

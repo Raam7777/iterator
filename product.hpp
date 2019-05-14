@@ -1,67 +1,70 @@
 #pragma once
-#include "range.hpp"
+#include <utility>
+#include "iostream"
+using namespace std;
 
-namespace itertools
+namespace itertools {
+
+template <typename E1, typename E2>
+class product
 {
-  template<typename T1, typename T2>
 
-  class product
+public:
+  E1 pro1;
+  E2 pro2;
+
+  product<E1,E2>(E1 pro1_begin, E2 pro2_end) : pro1(pro1_begin), pro2(pro2_end){}
+
+  product<E1,E2> _product(E1 pro1_begin, E2 pro2_end)
+  {
+    return product<E1,E2>(pro1_begin, pro2_end);
+  }
+
+  template<typename T1, typename T2>
+  class iterator
   {
   public:
-    T1 pro_begin;
-    T2 pro_end;
+    T1 iter1;
+    T2 iter2;
+    T2 iter2_other;
 
+    iterator(T1 it1, T2 it2) : iter1(it1), iter2(it2), iter2_other(it2) {}
 
-
-    product<T1,T2>(T1 pro_begin, T2 pro_end){}
-
-    class iterator
+    pair<decltype(*iter1),decltype(*iter2)> operator*() const
     {
-    public:
-      T1 *iter;
+      return pair<decltype(*iter1),decltype(*iter2)>(*iter1,*iter2);
+    }
 
-      iterator(T1 *iter = nullptr) : iter(iter) {}
+    product::iterator<T1,T2> &operator++()
+    {
+      ++iter2;
+      return *this;
+    }
 
-      T1 &operator*() const
+    bool operator!=(product::iterator<T1,T2> const &it)
+    {
+      if((iter1 != it.iter1) && (iter2 == it.iter2))
       {
-        return *iter;
+        iter2 = iter2_other;
+        ++iter1;
       }
-
-      iterator &operator++()
-      {
-        (*iter)++;
-        return *this;
-      }
-
-      const iterator operator++(int)
-      {
-        iterator temp = *this;
-        (*iter)++;
-        return temp;
-      }
-
-      bool operator==(iterator it) const
-      {
-        return *iter == *it.iter;
-      }
-
-      bool operator!=(iterator it) const
-      {
-        return *iter != *it.iter;
-      }
+      return (iter1 != it.iter1);
+    }
 
 
 
-    };
-
-  iterator begin()
-  {
-      return product<T1,T2>::iterator{&pro_begin};
-  }
-
-  iterator end()
-  {
-    return product<T1,T2>::iterator{&pro_end};
-  }
   };
+
+auto begin()
+{
+  return iterator<decltype(pro1.begin()), decltype(pro2.begin())>(pro1.begin(), pro2.begin());
+}
+
+auto end()
+{
+  return iterator<decltype(pro1.end()), decltype(pro2.end())>(pro1.end(), pro2.end());
+}
+
+};
+
 };

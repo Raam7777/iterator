@@ -8,58 +8,51 @@ class range
 {
 
 public:
-  T r_begin;
-  T r_end;
+  T r1;
+  T r2;
 
-  range<T>(T r_begin, T r_end):r_begin(r_begin),r_end(r_end){}
+  range<T>(T r1_begin, T r2_end) : r1(r1_begin), r2(r2_end){}
+
+  range<T> _range(T r1_begin, T r2_end)
+  {
+    return range<T>(r1_begin, r2_end);
+  }
 
   class iterator
   {
   public:
-    T *iter;
+    T iter;
 
-    iterator(T *iter = nullptr) : iter(iter) {}
+    iterator(T it) : iter(it) {}
 
-    T &operator*() const
+    T operator*() const
     {
-      return *iter;
+      return iter;
     }
 
-    iterator &operator++()
+    range::iterator &operator++()
     {
-      (*iter)++;
+      ++iter;
       return *this;
     }
 
-    const iterator operator++(int)
+    bool operator!=(range::iterator const &it) const
     {
-      iterator temp = *this;
-      (*iter)++;
-      return temp;
-    }
-
-    bool operator==(iterator it) const
-    {
-      return *iter == *it.iter;
-    }
-
-    bool operator!=(iterator it) const
-    {
-      return *iter != *it.iter;
+      return iter != it.iter;
     }
 
 
 
   };
 
-iterator begin()
+range<T>::iterator begin()
 {
-    return range<T>::iterator{&r_begin};
+    return range<T>::iterator(r1);
 }
 
-iterator end()
+range<T>::iterator end()
 {
-  return range<T>::iterator{&r_end};
+  return range<T>::iterator(r2);
 }
 
 };

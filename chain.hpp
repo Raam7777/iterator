@@ -1,67 +1,75 @@
 #pragma once
-#include "range.hpp"
+#include "iostream"
 
-namespace itertools
+namespace itertools {
+
+template <typename E1, typename E2>
+class chain
 {
-  template<typename T1, typename T2>
 
-  class chain
+public:
+  E1 ch1;
+  E2 ch2;
+
+  chain<E1,E2>(E1 ch1_begin, E2 ch2_end) : ch1(ch1_begin), ch2(ch2_end){}
+
+  chain<E1,E2> _chain(E1 ch1_begin, E2 ch2_end)
+  {
+    return chain<E1,E2>(ch1_begin, ch2_end);
+  }
+
+  template<typename T1, typename T2>
+  class iterator
   {
   public:
-    T1 ch_begin;
-    T2 ch_end;
+    T1 iter1;
+    T2 iter2;
+    bool it_bool;
 
+    iterator(T1 it1, T2 it2) : iter1(it1), iter2(it2) {}
 
-
-    chain<T1,T2>(T1 ch1, T2 ch2):ch_begin(ch_begin),ch_end(ch_end){}
-
-    class iterator
+    decltype(*iter1) operator*() const
     {
-    public:
-      T1 *iter;
+      if(it_bool)
+        return *iter1;
+      else
+        return *iter2;
+    }
 
-      iterator(T1 *iter = nullptr) : iter(iter) {}
+    chain::iterator<T1,T2> &operator++()
+    {
+      if(it_bool)
+        ++iter1;
+      else
+        ++iter2;
+      return *this;
+    }
 
-      T1 &operator*() const
-      {
-        return *iter;
-      }
+    bool operator!=(chain::iterator<T1,T2> const &it)
+    {
+      if(it_bool && (iter1 != it.iter1))
+        it_bool=false;
 
-      iterator &operator++()
-      {
-        (*iter)++;
-        return *this;
-      }
-
-      const iterator operator++(int)
-      {
-        iterator temp = *this;
-        (*iter)++;
-        return temp;
-      }
-
-      bool operator==(iterator it) const
-      {
-        return *iter == *it.iter;
-      }
-
-      bool operator!=(iterator it) const
-      {
-        return *iter != *it.iter;
-      }
+      if(it_bool)
+        return iter1 != it.iter1;
+      else
+        return iter2 != it.iter2;
+    }
 
 
 
-    };
-
-  iterator begin()
-  {
-      return chain<T1,T2>::iterator{&ch_begin};
-  }
-
-  iterator end()
-  {
-    return chain<T1,T2>::iterator{&ch_end};
-  }
   };
+
+auto begin()
+{
+  return chain::iterator<decltype(ch1.begin()), decltype(ch2.begin())>(ch1.begin(), ch2.begin());
+}
+
+auto end()
+{
+  return chain::iterator<decltype(ch1.end()), decltype(ch2.end())>(ch1.end(), ch2.end());
+}
+
+};
+
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "iostream"
 
+
 namespace itertools {
 
 template <typename E1, typename E2>
@@ -55,12 +56,12 @@ public:
 
   };
 
-auto begin()
+auto begin()const
 {
   return iterator<decltype(ch1.begin()), decltype(ch2.begin())>(ch1.begin(), ch2.begin());
 }
 
-auto end()
+auto end()const
 {
   return iterator<decltype(ch1.end()), decltype(ch2.end())>(ch1.end(), ch2.end());
 }

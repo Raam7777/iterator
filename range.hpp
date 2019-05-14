@@ -40,12 +40,12 @@ public:
 
   };
 
-iterator begin()
+iterator begin()const
 {
     return iterator(r1);
 }
 
-iterator end()
+iterator end()const
 {
   return iterator(r2);
 }

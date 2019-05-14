@@ -63,12 +63,12 @@ public:
 
   };
 
-auto begin()
+auto begin()const
 {
   return iterator<decltype(power.begin())>(power.begin(), power.end());
 }
 
-auto end()
+auto end()const
 {
   return iterator<decltype(power.begin())>(power.end(), power.end());
 }

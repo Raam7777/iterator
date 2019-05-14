@@ -50,12 +50,12 @@ public:
 
   };
 
-auto begin()
+auto begin()const
 {
   return iterator<decltype(pro1.begin()), decltype(pro2.begin())>(pro1.begin(), pro2.begin());
 }
 
-auto end()
+auto end()const
 {
   return iterator<decltype(pro1.end()), decltype(pro2.end())>(pro1.end(), pro2.end());
 }

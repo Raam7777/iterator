@@ -45,12 +45,12 @@ public:
 
   };
 
-auto begin()
+auto begin()const
 {
   return iterator<decltype(z1.begin()), decltype(z2.begin())>(z1.begin(), z2.begin());
 }
 
-auto end()
+auto end()const
 {
   return iterator<decltype(z1.end()), decltype(z2.end())>(z1.end(), z2.end());
 }

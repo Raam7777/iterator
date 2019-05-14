@@ -13,11 +13,6 @@ public:
 
   chain(E1 ch1_begin, E2 ch2_end) : ch1(ch1_begin), ch2(ch2_end){}
 
-  // chain<E1,E2> _chain(E1 ch1_begin, E2 ch2_end)
-  // {
-  //   return chain<E1,E2>(ch1_begin, ch2_end);
-  // }
-
   template<typename T1, typename T2>
   class iterator
   {
@@ -47,7 +42,7 @@ public:
 
     bool operator!=(chain::iterator<T1,T2> const &it)
     {
-      if(it_bool && (iter1 != it.iter1))
+      if(it_bool && !(iter1 != it.iter1))
         it_bool=false;
 
       if(it_bool)

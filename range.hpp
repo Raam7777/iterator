@@ -13,11 +13,6 @@ public:
 
   range(T r1_begin, T r2_end) : r1(r1_begin), r2(r2_end){}
 
-  // range _range(T r1_begin, T r2_end)
-  // {
-  //   return range(r1_begin, r2_end);
-  // }
-
   class iterator
   {
   public:

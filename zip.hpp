@@ -15,11 +15,6 @@ public:
 
   zip(E1 z1_begin, E2 z2_end) : z1(z1_begin), z2(z2_end){}
 
-  // zip<E1,E2> _zip(E1 z1_begin, E2 z2_end)
-  // {
-  //   return zip<E1,E2>(z1_begin, z2_end);
-  // }
-
   template<typename T1, typename T2>
   class iterator
   {

@@ -17,11 +17,6 @@ public:
 
   powerset(E _power) : power(_power){}
 
-  // powerset<E> _powerset(E _power)
-  // {
-  //   return powerset<E>(_power);
-  // }
-
   template<typename T>
   class iterator
   {

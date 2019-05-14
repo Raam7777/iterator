@@ -15,11 +15,6 @@ public:
 
   product(E1 pro1_begin, E2 pro2_end) : pro1(pro1_begin), pro2(pro2_end){}
 
-  // product<E1,E2> _product(E1 pro1_begin, E2 pro2_end)
-  // {
-  //   return product<E1,E2>(pro1_begin, pro2_end);
-  // }
-
   template<typename T1, typename T2>
   class iterator
   {
@@ -43,7 +38,7 @@ public:
 
     bool operator!=(product::iterator<T1,T2> const &it)
     {
-      if((iter1 != it.iter1) && (iter2 == it.iter2))
+      if((iter1 != it.iter1) && !(iter2 != it.iter2))
       {
         iter2 = iter2_other;
         ++iter1;

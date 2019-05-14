@@ -11,12 +11,12 @@ public:
   E1 ch1;
   E2 ch2;
 
-  chain<E1,E2>(E1 ch1_begin, E2 ch2_end) : ch1(ch1_begin), ch2(ch2_end){}
+  chain(E1 ch1_begin, E2 ch2_end) : ch1(ch1_begin), ch2(ch2_end){}
 
-  chain<E1,E2> _chain(E1 ch1_begin, E2 ch2_end)
-  {
-    return chain<E1,E2>(ch1_begin, ch2_end);
-  }
+  // chain<E1,E2> _chain(E1 ch1_begin, E2 ch2_end)
+  // {
+  //   return chain<E1,E2>(ch1_begin, ch2_end);
+  // }
 
   template<typename T1, typename T2>
   class iterator
@@ -62,12 +62,12 @@ public:
 
 auto begin()
 {
-  return chain::iterator<decltype(ch1.begin()), decltype(ch2.begin())>(ch1.begin(), ch2.begin());
+  return iterator<decltype(ch1.begin()), decltype(ch2.begin())>(ch1.begin(), ch2.begin());
 }
 
 auto end()
 {
-  return chain::iterator<decltype(ch1.end()), decltype(ch2.end())>(ch1.end(), ch2.end());
+  return iterator<decltype(ch1.end()), decltype(ch2.end())>(ch1.end(), ch2.end());
 }
 
 };

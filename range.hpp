@@ -11,12 +11,12 @@ public:
   T r1;
   T r2;
 
-  range<T>(T r1_begin, T r2_end) : r1(r1_begin), r2(r2_end){}
+  range(T r1_begin, T r2_end) : r1(r1_begin), r2(r2_end){}
 
-  range<T> _range(T r1_begin, T r2_end)
-  {
-    return range<T>(r1_begin, r2_end);
-  }
+  // range _range(T r1_begin, T r2_end)
+  // {
+  //   return range(r1_begin, r2_end);
+  // }
 
   class iterator
   {
@@ -45,14 +45,14 @@ public:
 
   };
 
-range<T>::iterator begin()
+iterator begin()
 {
-    return range<T>::iterator(r1);
+    return iterator(r1);
 }
 
-range<T>::iterator end()
+iterator end()
 {
-  return range<T>::iterator(r2);
+  return iterator(r2);
 }
 
 };

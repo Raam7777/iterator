@@ -58,7 +58,7 @@ int main()
     //***********************************TEST CHAIN***************************************//
 
 
-    ostringstream chain_int1, chain_int2, chain_double1, chain_double2, chain_char1, chain_char2, chain_char3, C_string_char;
+    ostringstream chain_int1, chain_int2, chain_double1, chain_char1, chain_char2, chain_char3, C_string_char;
 
     for(int i : chain(range(1,5),range(5,10)))
     {
@@ -71,10 +71,6 @@ int main()
     for(double d : chain(range(0.5,3.5),range(4.5,6.5)))
     {
       chain_double1 << d << " ";
-    }
-    for(double d : chain(range(1,3),range(4.5,6.5)))
-    {
-      chain_double2 << d << " ";
     }
     for(char c : chain(range('A','D'),range('D','H')))
     {
@@ -97,7 +93,6 @@ int main()
     .CHECK_OUTPUT(chain_int1.str(), "123456789")
     .CHECK_OUTPUT(chain_int2.str(), "12346789")
     .CHECK_OUTPUT(chain_double1.str(), "0.5 1.5 2.5 4.5 5.5 ")
-    .CHECK_OUTPUT(chain_double1.str(), "1.0 2.0 4.5 5.5 ")
     .CHECK_OUTPUT(chain_char1.str(), "ABCDEFG")
     .CHECK_OUTPUT(chain_char2.str(), "abcdefg")
     .CHECK_OUTPUT(chain_char3.str(), "ABCdefg")

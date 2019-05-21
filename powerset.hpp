@@ -75,7 +75,7 @@ auto end()const
 };
 
 template <typename E>
-_powerset<E> powerset(E ran)
+_powerset<E> powerset(const E& ran)
 {
     return _powerset<E>(ran);
 }

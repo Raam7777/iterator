@@ -20,7 +20,7 @@ public:
     T2 iter2;
     bool it_bool;
 
-    iterator(T1 it1, T2 it2) : iter1(it1), iter2(it2) {}
+    iterator(T1 it1, T2 it2) : iter1(it1), iter2(it2), it_bool(true) {}
 
     decltype(*iter1) operator*() const
     {

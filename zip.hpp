@@ -1,19 +1,20 @@
 #pragma once
 #include <utility>
-#include "iostream"
+#include <iostream>
+
 using namespace std;
 
 namespace itertools {
 
 template <typename E1, typename E2>
-class zip
+class _zip
 {
 
 public:
-  E1 z1;
-  E2 z2;
+  const E1& z1;
+  const E2& z2;
 
-  zip(E1 z1_begin, E2 z2_end) : z1(z1_begin), z2(z2_end){}
+  _zip(const E1& z1_begin, const E2& z2_end) : z1(z1_begin), z2(z2_end){}
 
   template<typename T1, typename T2>
   class iterator
@@ -29,14 +30,14 @@ public:
       return pair<decltype(*iter1),decltype(*iter2)>(*iter1,*iter2);
     }
 
-    zip::iterator<T1,T2> &operator++()
+    _zip::iterator<T1,T2> &operator++()
     {
       ++iter1;
       ++iter2;
       return *this;
     }
 
-    bool operator!=(zip::iterator<T1,T2> const &it)
+    bool operator!=(_zip::iterator<T1,T2> const &it)
     {
         return ((iter1 != it.iter1) && (iter2 != it.iter2));
     }
@@ -47,21 +48,25 @@ public:
 
 auto begin()const
 {
-  return iterator<decltype(z1.begin()), decltype(z2.begin())>(z1.begin(), z2.begin());
+  return _zip::iterator<decltype(z1.begin()), decltype(z2.begin())>(z1.begin(), z2.begin());
 }
 
 auto end()const
 {
-  return iterator<decltype(z1.end()), decltype(z2.end())>(z1.end(), z2.end());
+  return _zip::iterator<decltype(z1.end()), decltype(z2.end())>(z1.end(), z2.end());
 }
 
 };
 
-template <typename U1, typename U2>
-ostream &operator<<(ostream &os, const pair<U1,U2> &p)
+template <typename E1, typename E2>
+ostream &operator<<(ostream &os, const pair<E1,E2> &p)
 {
   os << p.first << ',' << p.second;
   return os;
 }
-
+template <typename E1, typename E2>
+_zip<E1,E2> zip(const E1& ran1, const E2& ran2)
+{
+    return _zip<E1,E2>(ran1, ran2);
+}
 };

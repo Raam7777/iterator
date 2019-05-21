@@ -1,17 +1,15 @@
-#pragma once
-#include "iostream"
 
 namespace itertools {
 
 template <typename T>
-class range
+class _range
 {
 
 public:
-  T r1;
-  T r2;
+  const T r1;
+  const T r2;
 
-  range(T r1_begin, T r2_end) : r1(r1_begin), r2(r2_end){}
+  _range(const T r1_begin, const T r2_end) : r1(r1_begin), r2(r2_end){}
 
   class iterator
   {
@@ -25,13 +23,13 @@ public:
       return iter;
     }
 
-    range::iterator &operator++()
+    _range::iterator &operator++()
     {
       ++iter;
       return *this;
     }
 
-    bool operator!=(range::iterator const &it) const
+    bool operator!=(_range::iterator const &it) const
     {
       return iter != it.iter;
     }
@@ -40,16 +38,20 @@ public:
 
   };
 
-iterator begin()const
+_range::iterator begin()const
 {
-    return iterator(r1);
+    return _range::iterator(r1);
 }
 
-iterator end()const
+_range::iterator end()const
 {
-  return iterator(r2);
+  return _range::iterator(r2);
 }
 
 };
-
-};
+template <typename T>
+_range<T> range(T ran1, T ran2)
+{
+    return _range<T>(ran1, ran2);
+}
+}

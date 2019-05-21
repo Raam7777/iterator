@@ -50,8 +50,8 @@ _range::iterator end()const
 
 };
 template <typename T>
-_range<T> range{const T& ran1, const T& ran2}
+_range<T> range(const T& ran1, const T& ran2)
 {
-    return _range<T>{ran1, ran2};
+    return _range<T>(ran1, ran2);
 }
 }

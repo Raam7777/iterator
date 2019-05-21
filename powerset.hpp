@@ -1,4 +1,4 @@
-
+#pragma once
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -7,14 +7,14 @@ using namespace std;
 namespace itertools {
 
 template <typename E>
-class _powerset
+class powerset
 {
 
 public:
   E power;
 
 
-  _powerset(const E _power) : power(_power){}
+  powerset(const E _power) : power(_power){}
 
   template<typename T>
   class iterator
@@ -49,13 +49,13 @@ public:
       return vec;
     }
 
-    _powerset::iterator<T> &operator++()
+    powerset::iterator<T> &operator++()
     {
       ++index;
       return *this;
     }
 
-    bool operator!=(_powerset::iterator<T> const &it)
+    bool operator!=(powerset::iterator<T> const &it)
     {
       return ((num - index) != (it.num - it.index - 1));
     }
@@ -64,21 +64,17 @@ public:
 
 auto begin()const
 {
-  return _powerset::iterator<decltype(power.begin())>(power.begin(), power.end());
+  return iterator<decltype(power.begin())>(power.begin(), power.end());
 }
 
 auto end()const
 {
-  return _powerset::iterator<decltype(power.begin())>(power.end(), power.end());
+  return iterator<decltype(power.begin())>(power.end(), power.end());
 }
 
 };
 
-template <typename E>
-_powerset<E> powerset(const E& ran)
-{
-    return _powerset<E>(ran);
-}
+
 
 template <typename E>
 ostream &operator<<(ostream &os, const vector<E> &vec)
@@ -101,4 +97,4 @@ ostream &operator<<(ostream &os, const vector<E> &vec)
   return os;
 }
 
-};
+}

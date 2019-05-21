@@ -1,15 +1,16 @@
+#pragma once
 
 namespace itertools {
 
 template <typename T>
-class _range
+class range
 {
 
 public:
   const T r1;
   const T r2;
 
-  _range(const T r1_begin, const T r2_end) : r1(r1_begin), r2(r2_end){}
+  range(const T r1_begin, const T r2_end) : r1(r1_begin), r2(r2_end){}
 
   class iterator
   {
@@ -23,13 +24,13 @@ public:
       return iter;
     }
 
-    _range::iterator &operator++()
+    range::iterator &operator++()
     {
       ++iter;
       return *this;
     }
 
-    bool operator!=(_range::iterator const &it) const
+    bool operator!=(range::iterator const &it) const
     {
       return iter != it.iter;
     }
@@ -38,20 +39,16 @@ public:
 
   };
 
-_range::iterator begin()const
+iterator begin()const
 {
-    return _range::iterator(r1);
+    return iterator(r1);
 }
 
-_range::iterator end()const
+iterator end()const
 {
-  return _range::iterator(r2);
+  return iterator(r2);
 }
 
 };
-template <typename T>
-_range<T> range(const T& ran1, const T& ran2)
-{
-    return _range<T>(ran1, ran2);
-}
+
 }

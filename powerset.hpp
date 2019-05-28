@@ -7,14 +7,14 @@ using namespace std;
 namespace itertools {
 
 template <typename E>
-class _powerset
+class powerset
 {
 
 public:
   E power;
 
 
-  _powerset(const E _power) : power(_power){}
+  powerset(const E _power) : power(_power){}
 
   template<typename T>
   class iterator
@@ -34,28 +34,30 @@ public:
       num = pow(2,num);
     }
 
-    vector<decltype(*iter_begin)> operator*() const
+    auto operator*() const
     {
-      vector<decltype(*iter_begin)> vec;
-      uint i = index;
-      for(T iter = iter_begin; iter!=iter_end && i!=0; ++iter){
-        uint r = i%2;
-        i = i >> 1;
+      T iter = iter_begin;
+      std::vector<typename std::remove_const<typename std::remove_reference<decltype(*iter_begin)>::type>::type> S;
 
-        if(r==1){
-          vec.push_back(*iter);
-        }
+      unsigned int i = index;
+      while (i != 0 && iter != iter_end)
+      {
+        unsigned int r = i % 2;
+        i = i >> 1;
+        if (r == 1)
+          S.emplace_back(*iter);
+        ++iter;
       }
-      return vec;
+      return S;
     }
 
-    _powerset::iterator<T> &operator++()
+    powerset::iterator<T> &operator++()
     {
       ++index;
       return *this;
     }
 
-    bool operator!=(_powerset::iterator<T> const &it)
+    bool operator!=(powerset::iterator<T> const &it)
     {
       return ((num - index) != (it.num - it.index - 1));
     }
@@ -64,21 +66,15 @@ public:
 
 auto begin()const
 {
-  return _powerset::iterator<decltype(power.begin())>(power.begin(), power.end());
+  return powerset::iterator<decltype(power.begin())>(power.begin(), power.end());
 }
 
 auto end()const
 {
-  return _powerset::iterator<decltype(power.begin())>(power.end(), power.end());
+  return powerset::iterator<decltype(power.begin())>(power.end(), power.end());
 }
 
 };
-
-template <typename E>
-_powerset<E> powerset(const E& ran)
-{
-    return _powerset<E>(ran);
-}
 
 template <typename E>
 ostream &operator<<(ostream &os, const vector<E> &vec)
@@ -101,4 +97,4 @@ ostream &operator<<(ostream &os, const vector<E> &vec)
   return os;
 }
 
-};
+}

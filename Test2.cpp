@@ -178,8 +178,10 @@ int main() {
 
   testcase.setname("YE - empty product");
 
-	for (auto i : product(range(1,3), range(5,5)))
+	for (auto i : product(range(1,3), range(5,5))){
         	testcase.CHECK_EQUAL(0,1);
+
+				}
 
 	for (auto i : product(range(3,3), range(1,5)))
         	testcase.CHECK_EQUAL(0,1);

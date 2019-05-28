@@ -3,14 +3,14 @@
 namespace itertools {
 
 template <typename E1, typename E2>
-class _chain
+class chain
 {
 
 public:
   const E1& ch1;
   const E2& ch2;
 
-  _chain(const E1& ch1_begin, const E2& ch2_end) : ch1(ch1_begin), ch2(ch2_end){}
+  chain(const E1& ch1_begin, const E2& ch2_end) : ch1(ch1_begin), ch2(ch2_end){}
 
   template<typename T1, typename T2>
   class iterator
@@ -30,7 +30,7 @@ public:
         return *iter2;
     }
 
-    _chain::iterator<T1,T2> &operator++()
+    chain::iterator<T1,T2> &operator++()
     {
       if(it_bool)
         ++iter1;
@@ -39,7 +39,7 @@ public:
       return *this;
     }
 
-    bool operator!=(_chain::iterator<T1,T2> const &it)
+    bool operator!=(chain::iterator<T1,T2> const &it)
     {
       if(it_bool && !(iter1 != it.iter1))
         it_bool=false;
@@ -56,18 +56,14 @@ public:
 
 auto begin()const
 {
-  return _chain::iterator<decltype(ch1.begin()), decltype(ch2.begin())>(ch1.begin(), ch2.begin());
+  return chain::iterator<decltype(ch1.begin()), decltype(ch2.begin())>(ch1.begin(), ch2.begin());
 }
 
 auto end()const
 {
-  return _chain::iterator<decltype(ch1.end()), decltype(ch2.end())>(ch1.end(), ch2.end());
+  return chain::iterator<decltype(ch1.end()), decltype(ch2.end())>(ch1.end(), ch2.end());
 }
 
 };
-template <typename E1, typename E2>
-_chain<E1,E2> chain(const E1& ran1, const E2& ran2)
-{
-    return _chain<E1,E2>(ran1, ran2);
-}
+
 }
